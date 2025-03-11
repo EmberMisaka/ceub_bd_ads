@@ -1,1 +1,4 @@
-Aula BD 
+--- Comandos ---
+SELECT
+CREATE
+DELETE
