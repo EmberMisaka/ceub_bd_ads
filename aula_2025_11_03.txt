@@ -1,4 +1,61 @@
---- Comandos ---
-SELECT
-CREATE
-DELETE
+-- Selecionando todos os registros
+-- da tabela médicos
+select * from medicos
+;
+
+-- Selecionando apenas nome e idade
+-- da tabela médicos
+select nome, idade from medicos
+;
+
+-- Selecionando todos os campos
+-- mas apenas o médico com codm igual a 3
+select * from medicos where codm = 3
+;
+
+-- Selecionando todos os campos da tabela médicos
+-- mas apenas o médico que a idade seja maior que 30 *E* que a especialidade seja pediatria
+-- comando "or" significa "ou"
+select * from medicos where idade > 30 and especialidade = 'pediatria'
+;
+
+-- Selecionando todos os campos da tabela médicos
+-- onde iniciem com M
+-- obs: M% significa (onde M e qualquer coisa depois), então %M = letra M no final e %M% = letra M em qualquer lugar da palavra
+select * from medicos where nome like 'm%'
+;
+
+-- Evitar repetição para selecionar tabelas com campos iguais de pessoas diferentes (na tabela existe dois ortopedistas)
+select distinct especialidade from medicos
+;
+
+-- seleciona a contagem de linhas ou colunas da tabela medicos;
+select count(*) from medicos
+;
+
+-- seleciona o médico com a maior idade da tabela médico;
+-- para ver o médico mais novo, usar o método "min()";
+select max(idade) from medicos
+;
+
+select especialidade, count(*) /* as qtd_medicos, muda o nome da tabela "count(*)" que seria criado automaticamente, torna o código mais fácil de entender*/
+from medicos
+-- agrupa por especialidade, a qual vai ser contada usando o método "count()";
+group by especialidade
+-- O método "order by" vai ordenar a tablea do menor para o maior
+order by count(*)
+;
+
+-- selecionando os médicos das cidades Florianópolis OU Blumenau;
+-- Usando OR
+select *
+from medicos
+where cidade = 'Florianopolis' or cidade = 'Blumenau'
+;
+
+-- selecionando os médicos das cidades Florianópolis OU Blumenau;
+-- Usando IN
+select *
+from medicos
+where cidade in ('Florianopolis','Blumenau')
+;
