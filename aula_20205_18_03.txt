@@ -1,0 +1,44 @@
+-- Exemplo 1 de Cross Join;
+select *
+from medicos as m
+	join consultas as c
+;
+
+-- Exemplo 2 de Cross Join;
+select *
+from medicos as m, consultas as c
+;
+
+
+-- [--------------- Separação ---------------]
+
+
+-- Inner join sem boa prática;
+select *
+from medicos as m, consultas as c
+where m.codm = c.codm
+;
+
+-- Inner join com boa prática;
+select *
+from medicos as m
+	join consultas as c on m.codm = c.codm
+;
+    
+-- Dois joins;
+select *
+from medicos as m
+	join consultas as c on m.codm = c.codm
+    join pacientes as p on p.codp = c.codp;
+;
+
+
+-- [--------------- Separação ---------------]
+
+
+-- Union (Juntar duas tabelas com select)
+select nome, cpf
+from medicos
+union
+select nome, cpf from funcionarios
+;
