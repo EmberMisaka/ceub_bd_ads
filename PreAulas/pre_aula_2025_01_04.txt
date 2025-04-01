@@ -1,31 +1,47 @@
-select * from movies;
-select * from directors;
+select * from pedidos;
 
--- Mostra informações relacionadas entre duas tabelas (boa prática)
--- Ele vai comparar a chavbe primária da tabela diretor com a chave estrangeira da tabela filmes;
--- O Where vai especificar qual diretor fez quais filmes (no caso o diretor com id = 1);
-
-Select *
-from movies as m
-	inner join directors as d
-	on m.director_id = d.id
-where m.director_id = 1;
-
--- As duas primeiras linhas do comando acaba em um Cross Join;
--- A condição "força" uma situação em que não mostra as repetições (não é uma boa prática);
-
+-- juntando pedidos em produtos sem que haja cross join
 select *
-from movies as m, directors as d
-where m.director_id = d.id;
+from pedidos as pe
+	join produtos as pr
+    on pe.produto_id = pr.id
+;
 
--- Este comando faz uma nova condição para que faça, aparentemente, a mesma coisa
--- que o primeiro comando mostrado, mas, como no segundo, ele "força" uma condição
--- para que seja semelhante ao comando usado como boa prática
+-- Mostrando o preço total de cada produto
+select (quantidade * preco) as valor_total
+from pedidos as pe
+	join produtos as pr
+    on pe.produto_id = pr.id;
+-- where (quantidade * preco) >= 500.0;
 
+-- mostrando o preço total de todos os pedidos e todos os produtos
+select sum(quantidade * preco) as valor_total
+from pedidos as pe
+	join produtos as pr
+    on pe.produto_id = pr.id
+;
+
+-- listar todos os pedidos
+-- incluindo pedidos sem produtos
 select *
-from movies as m, directors as d
-where m.director_id = d.id
-	and m.director_id = 1;
+from pedidos as pe
+	left join produtos as pr
+    on pe.produto_id = pr.id
+;
 
--- Em resumo, o primeiro comando de junção (Inner Join) é uma boa prática que, não vai gerar um Cross Join
--- Nos outros comandos, é uma versão mais implícita, o qual não é uma boa prática, do primeiro comando
+-- contar quantos produtos diferentes foram vendidos
+select count(distinct produto_id)
+from produtos as pr
+	join pedidos as pe
+    on pr.id = pe.produto_id
+;
+
+-- listar os clientes que já fizeram pedidos
+-- e o número de pedidos de cada um
+select c.nome, count(p.id)
+from clientes as c
+	join pedidos as p
+    on c.id = p.cliente_id
+GROUP BY c.nome
+;
+
