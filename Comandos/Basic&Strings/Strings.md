@@ -1,37 +1,3 @@
-# Comandos Básicos do SQL
-Caminho padrão para consultar tabelas:
-
-- ```SELECT```: Seleciona alguma coisa
-- ```FROM```: De alguma tabela
-- ```Where```: Com alguma condição (nem sempre é usado)
-
-**Tabela**
-
-    | id |  Nome  | idade |
-    | -  | ------ | ----- |
-    | 1  | Marcos |  19   |
-    | 2  | Miguel |  20   |
-    | 3  | Arthur |  16   |
-
-### Exemplo de uso
-
-    SELECT *
-    FROM cliente
-    Where idade >= 18
-
-- ```SELECT *``` - Seleciona tudo
-- ```FROM cliente``` - Da tabela cliente
-- ```Where idade >= 18``` - Onde a idade é maior ou igual a 18
-
-**Retorno**
-
-    | id |  Nome  | idade |
-    | -  | ------ | ----- |
-    | 1  | Marcos |  19   |
-    | 2  | Miguel |  20   |
-
-> Note que existe uma pessoa que não foi selecionada no comando.
-
 # 1.0 Operações Com String
 Nessa parte iremos trabalhar apenas com strings, campos de texto que são diferentes de data, hora e caractere.
 
@@ -223,3 +189,5 @@ O comando ```ORDER BY``` vai organizar a tabela de acordo com uma especificaçã
 
 - ```DESC``` - Prioriza a forma decrescente.
 - ```ASC``` - Prioriza a forma crescente.
+
+
