@@ -7,11 +7,11 @@ Caminho padrão para consultar tabelas:
 
 **Tabela**
 
-    | id |  Nome  | idade |
-    | -  | ------ | ----- |
-    | 1  | Marcos |  19   |
-    | 2  | Miguel |  20   |
-    | 3  | Arthur |  16   |
+| id |  Nome  | idade |
+| -  | ------ | ----- |
+| 1  | Marcos |  19   |
+| 2  | Miguel |  20   |
+| 3  | Arthur |  16   |
 
 ### Exemplo de uso
 
@@ -25,9 +25,9 @@ Caminho padrão para consultar tabelas:
 
 **Retorno**
 
-    | id |  Nome  | idade |
-    | -  | ------ | ----- |
-    | 1  | Marcos |  19   |
-    | 2  | Miguel |  20   |
+| id |  Nome  | idade |
+| -  | ------ | ----- |
+| 1  | Marcos |  19   |
+| 2  | Miguel |  20   |
 
 > Note que existe uma pessoa que não foi selecionada no comando.
