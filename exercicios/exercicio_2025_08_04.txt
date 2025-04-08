@@ -11,7 +11,7 @@ FROM pedidos;
 --  Calcular o valor total de todos os pedidos
 
 SELECT SUM(p.quantidade * pr.preco) AS valor_total_pedidos
-FROM pedidos p 
+FROM pedidos p
 JOIN produtos pr ON p.produto_id = pr.id;
 
 --  Calcular a média de preço dos produtos
@@ -146,5 +146,5 @@ LIMIT 1;
 -- Calcular a média de valor gasto por pedido
 
 SELECT AVG(p.quantidade * pr.preco) AS media_valor_pedido
-FROM pedidos p 
+FROM pedidos p
 JOIN produtos pr ON p.produto_id = pr.id;
