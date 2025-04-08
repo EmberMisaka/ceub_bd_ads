@@ -5,11 +5,11 @@ Nessa parte iremos trabalhar apenas com strings, campos de texto que são difere
 
 **Tabela**
 
-    | id |    nome     |         email          |
-    |----|-------------|------------------------|
-    | 1  | João Silva  |  joao.silva@email.com  |
-    | 2  | Maria Santos| maria.santos@email.com |
-    | 3  | Pedro Costa | pedro.costa@email.com  |
+| id |    nome     |         email          |
+|----|-------------|------------------------|
+| 1  | João Silva  |  joao.silva@email.com  |
+| 2  | Maria Santos| maria.santos@email.com |
+| 3  | Pedro Costa | pedro.costa@email.com  |
 
 **Comando**
 
@@ -25,9 +25,9 @@ Nessa parte iremos trabalhar apenas com strings, campos de texto que são difere
 
 **Retorno**
 
-    | id |    nome     |         email          |
-    |----|-------------|------------------------|
-    | 1  | João Silva  |  joao.silva@email.com  |
+| id |    nome     |         email          |
+|----|-------------|------------------------|
+| 1  | João Silva  |  joao.silva@email.com  |
 
 > Existem alguns usos para o comando ```LIKE``` e também para ```%```, que é exatamente o que irei explicar a seguir:
 
@@ -44,9 +44,9 @@ O caractere ```%``` representa "zero ou mais caracteres", de forma resumida, exi
 
 **Retorno**
 
-    | id |    nome     |         email          |
-    |----|-------------|------------------------|
-    | 1  | João Silva  |  joao.silva@email.com  |
+| id |    nome     |         email          |
+|----|-------------|------------------------|
+| 1  | João Silva  |  joao.silva@email.com  |
 
 A linha de código ```WERE nome LIKE 'J%'```, está aplicando uma condição na pesquisa em que o nome do cliente precisa COMEÇAR com a letra J, em resumo, o código quer dizer, em palavras humanas:
 
@@ -63,9 +63,9 @@ Portanto, o caractere ```%``` pode também ser utilizado no final e também no m
 
 **Retorno**
 
-    | id |    nome     |         email          |
-    |----|-------------|------------------------|
-    | 2  | Maria Santos| maria.santos@email.com |
+| id |    nome     |         email          |
+|----|-------------|------------------------|
+| 2  | Maria Santos| maria.santos@email.com |
 
 Nesse caso, a condição:
 
@@ -84,10 +84,10 @@ Lembrando que não importa se vai começar ou finalizar com essa letra, pois o c
 
 **Retorno**
 
-    | id |    nome     |         email          |
-    |----|-------------|------------------------|
-    | 1  | João Silva  |  joao.silva@email.com  |
-    | 3  | Pedro Costa | pedro.costa@email.com  |
+| id |    nome     |         email          |
+|----|-------------|------------------------|
+| 1  | João Silva  |  joao.silva@email.com  |
+| 3  | Pedro Costa | pedro.costa@email.com  |
 
 Como explicando anteriormente, o caractere ```%``` vai encontrar nomes que possuam qualquer coisa antes, mas que obrigatoriamente irão terminar com a ```Letra A```.
 
@@ -95,11 +95,11 @@ Como explicando anteriormente, o caractere ```%``` vai encontrar nomes que possu
 
 **Tabela**
 
-    | id |    nome     |         email          |
-    |----|-------------|------------------------|
-    | 1  | João Silva  |  joao.silva@email.com  |
-    | 2  | Maria Santos| maria.santos@email.com |
-    | 3  | Pedro Costa | pedro.costa@email.com  |
+| id |    nome     |         email          |
+|----|-------------|------------------------|
+| 1  | João Silva  |  joao.silva@email.com  |
+| 2  | Maria Santos| maria.santos@email.com |
+| 3  | Pedro Costa | pedro.costa@email.com  |
 
 **Comando**
 
@@ -114,11 +114,11 @@ Como explicando anteriormente, o caractere ```%``` vai encontrar nomes que possu
 
 **Retorno**
 
-    | id |    nome     |         email          |
-    |----|-------------|------------------------|
-    | 1  | João Silva  |  joao.silva@email.com  |
-    | 2  | Maria Santos| maria.santos@email.com |
-    | 3  | Pedro Costa | pedro.costa@email.com  |
+| id |    nome     |         email          |
+|----|-------------|------------------------|
+| 1  | João Silva  |  joao.silva@email.com  |
+| 2  | Maria Santos| maria.santos@email.com |
+| 3  | Pedro Costa | pedro.costa@email.com  |
 
 > Existem outras maneiras de utiluzar este caracetere nos comandos SQL, mas não irei demonstrar por ser um pouco "óbvio de mais", por assim dizer.
 
