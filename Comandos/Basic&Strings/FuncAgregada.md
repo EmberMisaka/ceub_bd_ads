@@ -14,6 +14,7 @@
 | 3  | Ghil | 1000.00 |
 
 **Comando MAX()**
+
     SELECT max(salario)
     FROM funcionario as f;
 
