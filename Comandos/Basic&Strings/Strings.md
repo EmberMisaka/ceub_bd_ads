@@ -130,10 +130,10 @@ O SQL, em diversos comandos de pesquisa pode gerar muitas repetições e, inclui
 
 **Tabela**
 
-    | id | nome |   bairro   |
-    | -- | ---- | ---------- |
-    | 01 | José |  Mandrake  |
-    | 02 | Mark | São Morais |
+| id | nome |   bairro   |
+| -- | ---- | ---------- |
+| 01 | José |  Mandrake  |
+| 02 | Mark | São Morais |
 
 **Comando**
 
@@ -142,10 +142,10 @@ O SQL, em diversos comandos de pesquisa pode gerar muitas repetições e, inclui
 
 **Retorno**
 
-    |   bairro   |
-    | ---------- |
-    |  Mandrake  |
-    | São Morais |
+|   bairro   |
+| ---------- |
+|  Mandrake  |
+| São Morais |
 
 ### Exemplo com Múltipas Colunas
 O comando ```DISTINCT``` pode ser utilizado sem as barras, e, também, para selecionar múltiplas colunas.
@@ -157,23 +157,23 @@ O comando ```DISTINCT``` pode ser utilizado sem as barras, e, também, para sele
 
 **Retorno**
 
-    | nome |   bairro   |
-    | ---- | ---------- |
-    | José |  Mandrake  |
-    | Mark | São Morais |
+| nome |   bairro   |
+| ---- | ---------- |
+| José |  Mandrake  |
+| Mark | São Morais |
 
 # 3.0 Order By
 
 O comando ```ORDER BY``` vai organizar a tabela de acordo com uma especificação, por exemplo:
 **Tabela**
 
-    | id |      nome      | idade |      cidade    |
-    |----|----------------|-------|----------------|
-    | 1  |   João Silva   | 25    | São Paulo      |
-    | 2  |  Maria Santos  | 31    | Rio de Janeiro |
-    | 3  |   Pedro Costa  | 42    | Belo Horizonte |
-    | 4  |    Ana Luiza   | 28    | Brasília       |
-    | 5  | Carlos Oliveira| 35    | Salvador       |
+| id |      nome      | idade |      cidade    |
+|----|----------------|-------|----------------|
+| 1  |   João Silva   | 25    | São Paulo      |
+| 2  |  Maria Santos  | 31    | Rio de Janeiro |
+| 3  |   Pedro Costa  | 42    | Belo Horizonte |
+| 4  |    Ana Luiza   | 28    | Brasília       |
+| 5  | Carlos Oliveira| 35    | Salvador       |
 
 **Comando**
 
