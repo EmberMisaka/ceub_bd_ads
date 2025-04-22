@@ -1,0 +1,49 @@
+-- Liste os cursos e suas ofertas que têm data de início entre 2023-01-01 e 2023-06-30.  (1 ponto)
+select curso.nome, oferta.data_inicio
+from oferta
+join curso on oferta.id_oferta = curso.id_curso
+where data_inicio >= '2023-01-01'and data_inicio <= '2023-06-30'
+;
+
+-- Qual é o total de inscrições por tipo de público  alvo?  (1 ponto)
+select count(usuario.nome), oferta.publico_alvo
+from usuario
+join oferta on usuario.id_usuario = oferta.id_oferta
+group by oferta.publico_alvo
+;
+
+-- Quantas inscrições existem por curso? (2 pontos)
+select count(usuario.nome), curso.nome
+from usuario
+join curso on usuario.id_usuario = curso.id_curso
+group by curso.nome
+;
+
+-- Liste os 10 usuários mais recentes que se inscreveram em ofertas. -- Eu sei que você sabe o que está acontecendo, só não sabe quem foi...
+select usuario.id_usuario, usuario.nome, inscricao.data_inscricao  
+from usuario
+join inscricao on usuario.id_usuario = inscricao.id_inscricao
+where usuario.id_usuario <= 10
+;
+
+-- Gere o CROSS JOIN das tabelas cursos e ofertas  (1 ponto)
+select *
+from curso
+join oferta
+;
+
+-- Liste os cursos que têm ofertas com inscrições de usuários que
+-- nasceram entre 1980 e 2000, e calcule a média de carga horária desses cursos.
+--  Além disso, ordene os resultados pela média de carga horária em
+-- ordem decrescente e limite a lista aos 5 primeiros cursos
+
+select curso.nome, usuario.nome, usuario.data_nascimento, curso.carga_horaria
+from curso
+join usuario on usuario.id_usuario = curso.id_curso
+where usuario.data_nascimento >= '1980-01-01' and usuario.data_nascimento <= '2000-12-31'
+order by curso.carga_horaria desc
+;
+-- Não consegui fazer o exercício inteiro
+
+-- para gerar a imagem:
+-- DataBase > Reverse Engineer > Next > Marque o banco sga > Next toda vida

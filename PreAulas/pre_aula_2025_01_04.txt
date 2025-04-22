@@ -1,0 +1,47 @@
+select * from pedidos;
+
+-- juntando pedidos em produtos sem que haja cross join
+select *
+from pedidos as pe
+	join produtos as pr
+    on pe.produto_id = pr.id
+;
+
+-- Mostrando o preço total de cada produto
+select (quantidade * preco) as valor_total
+from pedidos as pe
+	join produtos as pr
+    on pe.produto_id = pr.id;
+-- where (quantidade * preco) >= 500.0;
+
+-- mostrando o preço total de todos os pedidos e todos os produtos
+select sum(quantidade * preco) as valor_total
+from pedidos as pe
+	join produtos as pr
+    on pe.produto_id = pr.id
+;
+
+-- listar todos os pedidos
+-- incluindo pedidos sem produtos
+select *
+from pedidos as pe
+	left join produtos as pr
+    on pe.produto_id = pr.id
+;
+
+-- contar quantos produtos diferentes foram vendidos
+select count(distinct produto_id)
+from produtos as pr
+	join pedidos as pe
+    on pr.id = pe.produto_id
+;
+
+-- listar os clientes que já fizeram pedidos
+-- e o número de pedidos de cada um
+select c.nome, count(p.id)
+from clientes as c
+	join pedidos as p
+    on c.id = p.cliente_id
+GROUP BY c.nome
+;
+
