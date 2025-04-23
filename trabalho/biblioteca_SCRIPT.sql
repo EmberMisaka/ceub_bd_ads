@@ -147,3 +147,15 @@ INSERT INTO `biblioteca`.`emprestimo` (`id_emprestimo`, `data_emprestimo`, `data
 (1, '2025-04-15', '2025-04-22', '2025-04-21', 1, 1, 1, 1),
 (2, '2025-04-16', '2025-04-23', '2025-04-25', 0, 2, 2, 2),
 (3, '2025-04-17', '2025-04-24', NULL, 1, 3, 3, 3);
+
+-- Inserindo a minha mãe na tabela usuário
+INSERT INTO `biblioteca`.`usuario` (`id_usuario`, `usuario_nome`, `data_cadastro`, `cpf`) VALUES
+(4, "Wallkeyla Almeida de Alencar Lerbach", "2024-12-20", NULL);
+
+-- Criando a reserva da minha mãe
+INSERT INTO `biblioteca`.`reservas` (`id_reservas`, `data_reserva`, `status_reserva`) VALUES
+(4, "2025-04-21", 0);
+
+-- Inserindo o empréstimo da minha mãe
+INSERT INTO `biblioteca`.`emprestimo` (`id_emprestimo`, `data_emprestimo`, `data_dev_prev`, `data_dev_real`, `status_emprestimo`, `usuario_id_usuario`, `reservas_id_reservas`, `livro_id_livro`) VALUES
+(4, "2025-04-22", "2025-05-03", NULL, 0, 4, 4, 2);
