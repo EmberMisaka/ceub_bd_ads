@@ -1,0 +1,269 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema gerenciador_eventos
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema gerenciador_eventos
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `gerenciador_eventos` DEFAULT CHARACTER SET utf8 ;
+USE `gerenciador_eventos` ;
+
+-- -----------------------------------------------------
+-- Table `gerenciador_eventos`.`organizador`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gerenciador_eventos`.`organizador` (
+  `id_organizador` INT NOT NULL,
+  `nome_organizador` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NULL,
+  `telefone` VARCHAR(15) NOT NULL,
+  `endereco_organizador` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id_organizador`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `gerenciador_eventos`.`evento`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gerenciador_eventos`.`evento` (
+  `id_evento` INT NOT NULL,
+  `nome_evento` VARCHAR(45) NOT NULL,
+  `data_inicio` DATE NOT NULL,
+  `data_fim` DATE NOT NULL,
+  `local_evento` VARCHAR(45) NOT NULL,
+  `descricao` TEXT NOT NULL,
+  `genero` VARCHAR(45) NULL,
+  `organizador_id_organizador` INT NOT NULL,
+  PRIMARY KEY (`id_evento`),
+  INDEX `fk_evento_organizador1_idx` (`organizador_id_organizador` ASC) VISIBLE,
+  CONSTRAINT `fk_evento_organizador1`
+    FOREIGN KEY (`organizador_id_organizador`)
+    REFERENCES `gerenciador_eventos`.`organizador` (`id_organizador`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `gerenciador_eventos`.`participante`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gerenciador_eventos`.`participante` (
+  `id_participante` INT NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `telefone` VARCHAR(15) NOT NULL,
+  `maioridade` TINYINT NOT NULL,
+  `nome_participante` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id_participante`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `gerenciador_eventos`.`inscricao`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gerenciador_eventos`.`inscricao` (
+  `id_inscricao` INT NOT NULL,
+  `data_inscricao` DATE NOT NULL,
+  `status_pagamento` TINYINT NOT NULL,
+  `tipo_acesso` TINYINT NOT NULL,
+  `evento_id_evento` INT NOT NULL,
+  `participante_id_participante` INT NOT NULL,
+  PRIMARY KEY (`id_inscricao`),
+  INDEX `fk_inscricao_evento_idx` (`evento_id_evento` ASC) VISIBLE,
+  INDEX `fk_inscricao_participante1_idx` (`participante_id_participante` ASC) VISIBLE,
+  CONSTRAINT `fk_inscricao_evento`
+    FOREIGN KEY (`evento_id_evento`)
+    REFERENCES `gerenciador_eventos`.`evento` (`id_evento`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_inscricao_participante1`
+    FOREIGN KEY (`participante_id_participante`)
+    REFERENCES `gerenciador_eventos`.`participante` (`id_participante`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- Inserir dados na tabela organizador
+INSERT INTO `gerenciador_eventos`.`organizador` (`id_organizador`, `nome_organizador`, `email`, `telefone`, `endereco_organizador`) VALUES
+(1, 'Carlos Silva', 'carlos.silva@gmail.com', '(11) 99999-1001', 'Rua A, 123'),
+(2, 'Maria Oliveira', 'maria.oliveira@yahoo.com', '(21) 98888-1002', 'Rua B, 456'),
+(3, 'João Souza', 'joao.souza@hotmail.com', '(31) 97777-1003', 'Rua C, 789'),
+(4, 'Ana Costa', 'ana.costa@outlook.com', '(41) 96666-1004', 'Rua D, 1011'),
+(5, 'Lucas Lima', 'lucas.lima@gmail.com', '(51) 95555-1005', 'Rua E, 1213'),
+(6, 'Fernanda Martins', 'fernanda.martins@gmail.com', '(61) 94444-1006', 'Rua F, 1415'),
+(7, 'Roberto Alves', 'roberto.alves@hotmail.com', '(71) 93333-1007', 'Rua G, 1617'),
+(8, 'Patricia Souza', 'patricia.souza@yahoo.com', '(81) 92222-1008', 'Rua H, 1819'),
+(9, 'Felipe Costa', 'felipe.costa@gmail.com', '(91) 91111-1009', 'Rua I, 2021'),
+(10, 'Gabriela Rocha', 'gabriela.rocha@outlook.com', '(11) 90000-1010', 'Rua J, 2223'),
+(11, 'Thiago Almeida', 'thiago.almeida@yahoo.com', '(21) 97777-1011', 'Rua K, 2425'),
+(12, 'Renato Lima', 'renato.lima@hotmail.com', '(31) 96666-1012', 'Rua L, 2627'),
+(13, 'Carla Rocha', 'carla.rocha@gmail.com', '(41) 95555-1013', 'Rua M, 2829'),
+(14, 'Ricardo Pereira', 'ricardo.pereira@outlook.com', '(51) 94444-1014', 'Rua N, 3031'),
+(15, 'Mariana Costa', 'mariana.costa@gmail.com', '(61) 93333-1015', 'Rua O, 3233'),
+(16, 'Juliana Almeida', 'juliana.almeida@hotmail.com', '(71) 92222-1016', 'Rua P, 3435'),
+(17, 'Eduardo Souza', 'eduardo.souza@yahoo.com', '(81) 91111-1017', 'Rua Q, 3637'),
+(18, 'Simone Lima', 'simone.lima@gmail.com', '(91) 90000-1018', 'Rua R, 3839'),
+(19, 'Marcos Rocha', 'marcos.rocha@outlook.com', '(11) 97777-1019', 'Rua S, 4041'),
+(20, 'Vanessa Martins', 'vanessa.martins@yahoo.com', '(21) 96666-1020', 'Rua T, 4243'),
+(21, 'Juliano Costa', 'juliano.costa@gmail.com', '(31) 95555-1021', 'Rua U, 4445'),
+(22, 'Aline Souza', 'aline.souza@hotmail.com', '(41) 94444-1022', 'Rua V, 4647'),
+(23, 'Claudia Rocha', 'claudia.rocha@gmail.com', '(51) 93333-1023', 'Rua W, 4849'),
+(24, 'Rafael Lima', 'rafael.lima@outlook.com', '(61) 92222-1024', 'Rua X, 5051'),
+(25, 'Elenita Pereira', 'elenita.pereira@yahoo.com', '(71) 91111-1025', 'Rua Y, 5253'),
+(26, 'Gabriel Almeida', 'gabriel.almeida@gmail.com', '(81) 90000-1026', 'Rua Z, 5455'),
+(27, 'Rodrigo Costa', 'rodrigo.costa@hotmail.com', '(91) 97777-1027', 'Rua AA, 5657'),
+(28, 'Juliana Pereira', 'juliana.pereira@outlook.com', '(11) 96666-1028', 'Rua BB, 5859'),
+(29, 'Fábio Lima', 'fabio.lima@gmail.com', '(21) 95555-1029', 'Rua CC, 6061'),
+(30, 'Paula Martins', 'paula.martins@yahoo.com', '(31) 94444-1030', 'Rua DD, 6263'),
+(31, 'Raquel Souza', 'raquel.souza@outlook.com', '(41) 93333-1031', 'Rua EE, 6465'),
+(32, 'Luciano Rocha', 'luciano.rocha@gmail.com', '(51) 92222-1032', 'Rua FF, 6667'),
+(33, 'Karla Almeida', 'karla.almeida@hotmail.com', '(61) 91111-1033', 'Rua GG, 6869'),
+(34, 'Mônica Costa', 'monica.costa@yahoo.com', '(71) 90000-1034', 'Rua HH, 7071'),
+(35, 'Wilson Pereira', 'wilson.pereira@outlook.com', '(81) 97777-1035', 'Rua II, 7273'),
+(36, 'Felipe Lima', 'felipe.lima@gmail.com', '(91) 96666-1036', 'Rua JJ, 7475'),
+(37, 'Ester Rocha', 'ester.rocha@gmail.com', '(11) 95555-1037', 'Rua KK, 7677'),
+(38, 'Eduardo Pereira', 'eduardo.pereira@outlook.com', '(21) 94444-1038', 'Rua LL, 7879'),
+(39, 'Giovana Almeida', 'giovana.almeida@hotmail.com', '(31) 93333-1039', 'Rua MM, 8081'),
+(40, 'Kátia Souza', 'katia.souza@gmail.com', '(41) 92222-1040', 'Rua NN, 8283');
+
+-- Inserir dados na tabela evento
+INSERT INTO `gerenciador_eventos`.`evento` (`id_evento`, `nome_evento`, `data_inicio`, `data_fim`, `local_evento`, `descricao`, `genero`, `organizador_id_organizador`) VALUES
+(1, 'Festa de Aniversário', '2025-06-01', '2025-06-01', 'Salão de Festas', 'Festa para comemorar o aniversário de um grande amigo.', 'Festa', 1),
+(2, 'Workshop de Tecnologia', '2025-07-10', '2025-07-11', 'Centro de Convenções', 'Workshop focado em inovações tecnológicas.', 'Tecnologia', 2),
+(3, 'Seminário de Marketing', '2025-08-05', '2025-08-06', 'Auditório A', 'Seminário sobre as melhores práticas de marketing digital.', 'Marketing', 3),
+(4, 'Exposição de Arte', '2025-09-01', '2025-09-30', 'Museu de Arte', 'Exposição de artistas locais.', 'Arte', 4),
+(5, 'Curso de Fotografia', '2025-10-10', '2025-10-12', 'Escola de Fotografia', 'Curso intensivo para iniciantes e profissionais.', 'Fotografia', 5),
+(6, 'Festa Junina', '2025-06-20', '2025-06-20', 'Praça Central', 'Festa típica com quadrilha e comidas típicas.', 'Festa', 6),
+(7, 'Congresso de Medicina', '2025-07-15', '2025-07-17', 'Centro Médico', 'Congresso internacional sobre as últimas tendências em medicina.', 'Medicina', 7),
+(8, 'Conferência de Negócios', '2025-08-01', '2025-08-02', 'Hotel Lux', 'Conferência sobre empreendedorismo e negócios inovadores.', 'Negócios', 8),
+(9, 'Festival de Cinema', '2025-09-10', '2025-09-12', 'Cineplex', 'Festival de filmes independentes.', 'Cinema', 9),
+(10, 'Encontro de Blogs', '2025-10-15', '2025-10-16', 'Hotel Grand', 'Encontro de criadores de conteúdo e influenciadores.', 'Blogs', 10),
+(11, 'Curso de Culinária', '2025-06-10', '2025-06-12', 'Espaço Gourmet', 'Curso de culinária francesa para iniciantes.', 'Culinária', 11),
+(12, 'Feira de Tecnologia', '2025-07-05', '2025-07-06', 'Centro de Exposições', 'Feira de novas tecnologias e inovações.', 'Tecnologia', 12),
+(13, 'Festival Gastronômico', '2025-08-15', '2025-08-16', 'Praça de Alimentação', 'Festival de gastronomia com chefs renomados.', 'Gastronomia', 13),
+(14, 'Conferência de Psicologia', '2025-09-05', '2025-09-06', 'Auditório B', 'Conferência sobre saúde mental e psicologia.', 'Psicologia', 14),
+(15, 'Exposição de Fotografia', '2025-10-01', '2025-10-05', 'Galeria de Arte', 'Exposição de fotógrafos contemporâneos.', 'Arte', 15),
+(16, 'Workshop de Design', '2025-06-30', '2025-07-01', 'Escola de Design', 'Workshop sobre as últimas tendências em design gráfico.', 'Design', 16),
+(17, 'Fórum de Engenharia', '2025-07-25', '2025-07-27', 'Centro de Engenharia', 'Fórum para engenheiros de diversas áreas discutirem inovações.', 'Engenharia', 17),
+(18, 'Encontro de Desenvolvimento Pessoal', '2025-08-20', '2025-08-21', 'Centro de Convenções', 'Encontro para desenvolvimento de habilidades pessoais e profissionais.', 'Desenvolvimento', 18),
+(19, 'Simpósio de Ciências', '2025-09-15', '2025-09-16', 'Universidade XYZ', 'Simpósio sobre pesquisas científicas em diversas áreas.', 'Ciências', 19),
+(20, 'Festival de Música', '2025-10-01', '2025-10-03', 'Teatro Municipal', 'Festival com bandas locais e internacionais.', 'Música', 20),
+(21, 'Festival de Música Rock', '2025-05-15', '2025-05-16', 'Estádio Nacional', 'Um evento de rock com bandas nacionais e internacionais.', 'Música', 1),
+(22, 'Conferência de Tecnologia', '2025-06-01', '2025-06-03', 'Centro de Convenções', 'Palestras sobre inovação tecnológica e startups.', 'Tecnologia', 2),
+(23, 'Feira de Ciências', '2025-07-10', '2025-07-12', 'Parque de Exposições', 'Exposição de projetos científicos de jovens estudantes.', 'Educação', 3),
+(24, 'Festival Gastronômico', '2025-08-05', '2025-08-07', 'Praça Central', 'Evento com chefs renomados e pratos típicos de diferentes regiões.', 'Culinária', 4),
+(25, 'Maratona da Cidade', '2025-09-12', '2025-09-12', 'Avenida Principal', 'Corrida de 5km e 10km aberta a todas as idades.', 'Esporte', 5),
+(26, 'Exposição de Arte Contemporânea', '2025-10-15', '2025-10-20', 'Museu de Arte', 'Mostra de artistas locais e internacionais com diversas formas de arte.', 'Arte', 6),
+(27, 'Seminário de Educação Ambiental', '2025-11-10', '2025-11-11', 'Auditório Municipal', 'Palestras sobre sustentabilidade e preservação ambiental.', 'Educação', 7),
+(28, 'Carnaval de Rua', '2025-02-15', '2025-02-18', 'Rua das Flores', 'Desfile de blocos de rua com muito samba e folia.', 'Festas', 8),
+(29, 'Feira do Livro', '2025-04-01', '2025-04-05', 'Centro Cultural', 'Feira com autores, livros raros e sessões de autógrafos.', 'Literatura', 9),
+(30, 'Encontro de Carros Antigos', '2025-05-10', '2025-05-10', 'Parque de Exposições', 'Exposição e competição de carros antigos e clássicos.', 'Automobilismo', 10),
+(31, 'Festival de Cinema', '2025-06-20', '2025-06-22', 'Cine Teatro', 'Exibição de filmes independentes e clássicos do cinema mundial.', 'Cinema', 11),
+(32, 'Exposição de Tecnologia 4.0', '2025-07-25', '2025-07-28', 'Centro de Exposições', 'Exposição sobre inteligência artificial, IoT e automação.', 'Tecnologia', 12),
+(33, 'Festival de Dança', '2025-08-10', '2025-08-12', 'Teatro Municipal', 'Dançarinos de diversas partes do mundo se apresentam em diversas modalidades.', 'Dança', 13),
+(34, 'Encontro de Violeiros', '2025-09-20', '2025-09-22', 'Praça da Cidade', 'Festival de música sertaneja e apresentações de violeiros.', 'Música', 14),
+(35, 'Congresso de Saúde e Bem-estar', '2025-10-25', '2025-10-26', 'Centro de Convenções', 'Palestras sobre qualidade de vida, alimentação saudável e atividades físicas.', 'Saúde', 15),
+(36, 'Simulação de Mercado Financeiro', '2025-11-05', '2025-11-07', 'Auditório Empresarial', 'Simulação de negociações financeiras e estratégias de investimentos.', 'Educação', 16),
+(37, 'Festival de Humor', '2025-12-10', '2025-12-12', 'Teatro Central', 'Comediantes se apresentam em um evento de stand-up e comédia improvisada.', 'Comédia', 17),
+(38, 'Festival Internacional de Jazz', '2025-01-20', '2025-01-22', 'Casa de Cultura', 'Músicos de jazz de todo o mundo se apresentam para os amantes do gênero.', 'Música', 18),
+(39, 'Encontro de Desenvolvedores', '2025-03-15', '2025-03-16', 'Centro de Tecnologia', 'Palestras e workshops sobre programação, frameworks e novas tendências de desenvolvimento.', 'Tecnologia', 19),
+(40, 'Mostra de Teatro Infantil', '2025-04-10', '2025-04-12', 'Teatro de Marionetes', 'Apresentações de peças de teatro voltadas para o público infantil.', 'Teatro', 20);
+-- Adicionei mais 20 eventos aqui. Pode-se continuar seguindo o padrão.
+
+-- Inserir dados na tabela participante (pais e filhos)
+INSERT INTO `gerenciador_eventos`.`participante` (`id_participante`, `email`, `telefone`, `maioridade`, `nome_participante`) VALUES
+(1, 'joao.silva@gmail.com', '(11) 99999-1001', 1, 'João Silva'),
+(2, 'maria.silva@gmail.com', '(11) 99999-1002', 1, 'Maria Silva'),
+(3, 'pedro.silva@gmail.com', '(11) 99999-1003', 0, 'Pedro Silva'),  -- Filho de João e Maria
+(4, 'ana.silva@gmail.com', '(11) 99999-1004', 0, 'Ana Silva'),  -- Filha de João e Maria
+(5, 'lucas.lima@gmail.com', '(51) 95555-1005', 1, 'Lucas Lima'),
+(6, 'fernanda.lima@gmail.com', '(51) 95555-1006', 1, 'Fernanda Lima'),
+(7, 'bruna.lima@gmail.com', '(51) 95555-1007', 0, 'Bruna Lima'),  -- Filha de Lucas e Fernanda
+(8, 'paula.almeida@gmail.com', '(41) 95555-1008', 1, 'Paula Almeida'),
+(9, 'roberto.almeida@gmail.com', '(41) 95555-1009', 1, 'Roberto Almeida'),
+(10, 'pedro.almeida@gmail.com', '(41) 95555-1010', 0, 'Pedro Almeida'),  -- Filho de Paula e Roberto
+(11, 'juliana.pereira@gmail.com', '(61) 93333-1011', 1, 'Juliana Pereira'),
+(12, 'ricardo.pereira@gmail.com', '(61) 93333-1012', 1, 'Ricardo Pereira'),
+(13, 'mariana.pereira@gmail.com', '(61) 93333-1013', 0, 'Mariana Pereira'),  -- Filha de Juliana e Ricardo
+(14, 'andre.rodrigues@gmail.com', '(71) 92222-1014', 1, 'André Rodrigues'),
+(15, 'luana.rodrigues@gmail.com', '(71) 92222-1015', 1, 'Luana Rodrigues'),
+(16, 'carlos.rodrigues@gmail.com', '(71) 92222-1016', 0, 'Carlos Rodrigues'),  -- Filho de André e Luana
+(17, 'marcos.rocha@gmail.com', '(91) 91111-1017', 1, 'Marcos Rocha'),
+(18, 'fatima.rocha@gmail.com', '(91) 91111-1018', 1, 'Fátima Rocha'),
+(19, 'gabriel.rocha@gmail.com', '(91) 91111-1019', 0, 'Gabriel Rocha'),  -- Filho de Marcos e Fátima
+(20, 'renata.souza@gmail.com', '(31) 96666-1020', 1, 'Renata Souza'),
+(21, 'eduardo.souza@gmail.com', '(31) 96666-1021', 1, 'Eduardo Souza'),
+(22, 'laura.souza@gmail.com', '(31) 96666-1022', 0, 'Laura Souza'),  -- Filha de Renata e Eduardo
+(23, 'felipe.silveira@gmail.com', '(41) 95555-1023', 1, 'Felipe Silveira'),
+(24, 'cintia.silveira@gmail.com', '(41) 95555-1024', 1, 'Cintia Silveira'),
+(25, 'lucas.silveira@gmail.com', '(41) 95555-1025', 0, 'Lucas Silveira'),  -- Filho de Felipe e Cintia
+(26, 'tiago.rodrigues@gmail.com', '(71) 93333-1026', 1, 'Tiago Rodrigues'),
+(27, 'carla.rodrigues@gmail.com', '(71) 93333-1027', 1, 'Carla Rodrigues'),
+(28, 'mariana.rodrigues@gmail.com', '(71) 93333-1028', 0, 'Mariana Rodrigues'),  -- Filha de Tiago e Carla
+(29, 'sandra.oliveira@gmail.com', '(11) 99999-1029', 1, 'Sandra Oliveira'),
+(30, 'rogerio.oliveira@gmail.com', '(11) 99999-1030', 1, 'Rogério Oliveira'),
+(31, 'juliana.oliveira@gmail.com', '(11) 99999-1031', 0, 'Juliana Oliveira'),  -- Filha de Sandra e Rogério
+(32, 'adriana.martins@gmail.com', '(21) 97777-1032', 1, 'Adriana Martins'),
+(33, 'roberto.martins@gmail.com', '(21) 97777-1033', 1, 'Roberto Martins'),
+(34, 'renan.martins@gmail.com', '(21) 97777-1034', 0, 'Renan Martins'),  -- Filho de Adriana e Roberto
+(35, 'michele.almeida@gmail.com', '(61) 93333-1035', 1, 'Michele Almeida'),
+(36, 'alessandro.almeida@gmail.com', '(61) 93333-1036', 1, 'Alessandro Almeida'),
+(37, 'beatriz.almeida@gmail.com', '(61) 93333-1037', 0, 'Beatriz Almeida'),  -- Filha de Michele e Alessandro
+(38, 'marcos.pereira@gmail.com', '(71) 94444-1038', 1, 'Marcos Pereira'),
+(39, 'luiza.pereira@gmail.com', '(71) 94444-1039', 1, 'Luiza Pereira'),
+(40, 'bruna.pereira@gmail.com', '(71) 94444-1040', 0, 'Bruna Pereira');  -- Filha de Marcos e Luiza
+
+
+-- Inserir dados na tabela inscricao
+INSERT INTO `gerenciador_eventos`.`inscricao` (`id_inscricao`, `data_inscricao`, `status_pagamento`, `tipo_acesso`, `evento_id_evento`, `participante_id_participante`) VALUES
+(1, '2025-05-10', 1, 1, 1, 1),
+(2, '2025-05-11', 1, 2, 2, 2),
+(3, '2025-05-12', 0, 1, 3, 3),
+(4, '2025-05-13', 1, 2, 4, 4),
+(5, '2025-05-14', 0, 1, 5, 5),
+(6, '2025-05-15', 1, 2, 6, 6),
+(7, '2025-05-16', 1, 1, 7, 7),
+(8, '2025-05-17', 0, 2, 8, 8),
+(9, '2025-05-18', 1, 1, 9, 9),
+(10, '2025-05-19', 1, 2, 10, 10),
+(11, '2025-05-20', 1, 1, 11, 11),
+(12, '2025-05-21', 1, 2, 12, 12),
+(13, '2025-05-22', 0, 1, 13, 13),
+(14, '2025-05-23', 1, 2, 14, 14),
+(15, '2025-05-24', 1, 1, 15, 15),
+(16, '2025-05-25', 1, 2, 16, 16),
+(17, '2025-05-26', 1, 1, 17, 17),
+(18, '2025-05-27', 0, 2, 18, 18),
+(19, '2025-05-28', 1, 1, 19, 19),
+(20, '2025-05-29', 1, 2, 20, 20),
+(21, '2025-05-30', 0, 1, 21, 21),
+(22, '2025-06-01', 1, 2, 22, 22),
+(23, '2025-06-02', 0, 1, 23, 23),
+(24, '2025-06-03', 1, 1, 24, 24),
+(25, '2025-06-04', 1, 2, 25, 25),
+(26, '2025-06-05', 0, 1, 26, 26),
+(27, '2025-06-06', 1, 2, 27, 27),
+(28, '2025-06-07', 1, 1, 28, 28),
+(29, '2025-06-08', 1, 2, 29, 29),
+(30, '2025-06-09', 1, 1, 30, 30),
+(31, '2025-06-10', 0, 2, 31, 31),
+(32, '2025-06-11', 1, 1, 32, 32),
+(33, '2025-06-12', 1, 2, 33, 33),
+(34, '2025-06-13', 0, 1, 34, 34),
+(35, '2025-06-14', 1, 2, 35, 35),
+(36, '2025-06-15', 1, 1, 36, 36),
+(37, '2025-06-16', 0, 2, 37, 37),
+(38, '2025-06-17', 1, 1, 38, 38),
+(39, '2025-06-18', 1, 2, 39, 39),
+(40, '2025-06-19', 1, 1, 40, 40);
+select *
+from participante;
