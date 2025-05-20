@@ -1,0 +1,73 @@
+1. Clientes com email "@gmail.com" usando subconsulta na cláusula FROM
+sql
+-- ---------------------------------------------------------------------------
+SELECT nome, email
+FROM (
+    SELECT * FROM clientes
+    WHERE email LIKE '%@gmail.com'
+) AS clientes_gmail;
+-- ---------------------------------------------------------------------------
+
+Explicação:
+SELECT nome, email:
+Seleciona as colunas nome e email do resultado da subconsulta.
+
+FROM (...) AS clientes_gmail:
+Aqui temos a subconsulta na cláusula FROM, que cria uma tabela temporária chamada clientes_gmail.
+
+SELECT * FROM clientes WHERE email LIKE '%@gmail.com':
+Esta subconsulta seleciona todos os dados da tabela clientes onde o campo email termina com "@gmail.com".
+O operador LIKE '%@gmail.com' usa o caractere % como coringa para qualquer sequência antes de @gmail.com.
+
+[ ---------------------------------------------------------------------------- ]
+
+2. Produtos com preço menor que R$100, ordenados por nome (com subconsulta)
+sql
+-- ---------------------------------------------------------------------------
+SELECT nome, preco
+FROM (
+    SELECT * FROM produtos
+    WHERE preco < 100
+) AS produtos_baratos
+ORDER BY nome;
+-- ---------------------------------------------------------------------------
+
+Explicação:
+SELECT nome, preco:
+Seleciona os campos nome e preco dos produtos retornados pela subconsulta.
+
+FROM (...) AS produtos_baratos:
+Subconsulta usada na cláusula FROM, que cria uma tabela temporária chamada produtos_baratos.
+
+SELECT * FROM produtos WHERE preco < 100:
+Retorna todos os produtos cujo preço seja menor que 100 reais.
+
+ORDER BY nome:
+Ordena os resultados finais pelo nome do produto, em ordem alfabética.
+
+[ ---------------------------------------------------------------------------- ]
+
+3. Pedidos feitos por "Ana Souza" (usando subconsulta no WHERE)
+sql
+-- ---------------------------------------------------------------------------
+SELECT id, data_pedido
+FROM pedidos
+WHERE cliente_id = (
+    SELECT id FROM clientes
+    WHERE nome = 'Ana Souza'
+);
+-- ---------------------------------------------------------------------------
+
+Explicação:
+SELECT id, data_pedido:
+Seleciona os campos id (do pedido) e data_pedido da tabela pedidos.
+
+FROM pedidos:
+A consulta está sendo feita sobre a tabela de pedidos.
+
+WHERE cliente_id = (...):
+Filtra os pedidos cujo campo cliente_id seja igual ao valor retornado pela subconsulta.
+
+SELECT id FROM clientes WHERE nome = 'Ana Souza':
+A subconsulta busca o id da cliente com nome "Ana Souza" na tabela clientes.
+Este id será usado na comparação com cliente_id da tabela pedidos.
