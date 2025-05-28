@@ -1,0 +1,85 @@
+body {
+    background-color: #f8f9fa; /* Cor de fundo leve */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 30px; /* Espaço do topo */
+    padding-bottom: 30px; /* Espaço da base */
+}
+
+.container {
+    background-color: #ffffff; /* Fundo branco para o container */
+    border-radius: 8px; /* Cantos arredondados */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    padding: 30px; /* Espaçamento interno */
+}
+
+.header-title {
+    color: #007bff; /* Cor azul primária para o título */
+    font-weight: 600;
+    margin-bottom: 30px; /* Espaço abaixo do título */
+}
+
+.table-responsive {
+    margin-top: 20px; /* Espaço acima da tabela */
+}
+
+.table th, .table td {
+    vertical-align: middle; /* Centraliza verticalmente o conteúdo das células */
+    padding: 12px; /* Aumenta o padding das células */
+}
+
+.table thead th {
+    background-color: #343a40; /* Cor de fundo para o cabeçalho da tabela */
+    color: white; /* Cor do texto do cabeçalho */
+    border-bottom: 2px solid #007bff; /* Borda inferior no cabeçalho */
+}
+
+/* Estilos para o botão de ação */
+.btn-action {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px; /* Espaço entre o ícone e o texto */
+}
+
+/* Estilos específicos para telas menores (Responsividade aprimorada) */
+@media (max-width: 767.98px) {
+    .table thead {
+        display: none; /* Esconde o cabeçalho da tabela em telas muito pequenas */
+    }
+
+    .table, .table tbody, .table tr, .table td {
+        display: block; /* Transforma a tabela em blocos para melhor leitura */
+        width: 100%;
+    }
+
+    .table tr {
+        margin-bottom: 15px; /* Espaço entre cada "linha" simulada */
+        border: 1px solid #dee2e6;
+        border-radius: 5px;
+        background-color: #fefefe;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .table td {
+        text-align: right; /* Alinha o conteúdo à direita */
+        padding-left: 50%; /* Espaço para o label */
+        position: relative;
+    }
+
+    .table td::before {
+        content: attr(data-label); /* Usa o atributo data-label como pseudo-elemento */
+        position: absolute;
+        left: 10px;
+        width: calc(50% - 20px);
+        text-align: left; /* Alinha o label à esquerda */
+        font-weight: bold;
+        color: #495057;
+    }
+    .table td:last-child { /* Ajuste para a célula de ações */
+        text-align: center;
+        padding-left: 10px; /* Remove o padding extra para o label */
+    }
+    .table td:last-child::before {
+        content: "Ações"; /* Label para o campo de ações em mobile */
+    }
+}
