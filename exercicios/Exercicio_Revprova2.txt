@@ -1,0 +1,191 @@
+SELECT
+    p.nome AS nome_projeto,
+    COUNT(CASE WHEN t.prioridade = 'Baixa' THEN 1 END) AS qtd_baixa,
+    COUNT(CASE WHEN t.prioridade = 'Normal' THEN 1 END) AS qtd_normal,
+    COUNT(CASE WHEN t.prioridade = 'Alta' THEN 1 END) AS qtd_alta,
+    COUNT(CASE WHEN t.prioridade = 'Urgente' THEN 1 END) AS qtd_urgente
+FROM
+    Projetos p
+LEFT JOIN
+    Tarefas t ON p.id = t.id_projeto
+GROUP BY
+    p.nome
+ORDER BY
+    p.nome;
+----------------------------------------------------------------------------------------------------------------------
+Explicação
+
+FROM Projetos p
+Selecionamos todos os projetos.
+
+LEFT JOIN Tarefas t ON p.id = t.id_projeto
+Unimos os projetos com suas tarefas. O LEFT JOIN garante que projetos sem nenhuma tarefa ainda apareçam com contagens 0.
+
+COUNT(CASE WHEN t.prioridade = '...' THEN 1 END)
+Isso conta apenas as tarefas da prioridade desejada. Se não houver nenhuma, o CASE retorna NULL, e o COUNT ignora, resultando em 0.
+
+GROUP BY p.nome
+Agrupa os dados por projeto.
+
+ORDER BY p.nome
+Ordena os resultados alfabeticamente pelo nome do projeto (opcional, mas deixa a saída mais organizada).
+----------------------------------------------------------------------------------------------------------------------
+
+SELECT
+    r.nome AS nome_responsavel,
+    COUNT(t.id) AS qtd_tarefas
+FROM
+    Responsaveis r
+JOIN
+    Tarefas t ON r.id = t.id_responsavel_tarefa
+GROUP BY
+    r.nome
+HAVING
+    COUNT(t.id) >= 3
+ORDER BY
+    qtd_tarefas DESC;
+----------------------------------------------------------------------------------------------------------------------
+Explicação:
+
+JOIN Tarefas t ON r.id = t.id_responsavel_tarefa
+Junta os responsáveis com as tarefas que estão sob sua responsabilidade.
+
+COUNT(t.id)
+Conta quantas tarefas cada responsável tem.
+
+GROUP BY r.nome
+Agrupa os dados por responsável para realizar a contagem.
+
+HAVING COUNT(t.id) >= 3
+Filtra para mostrar somente aqueles com 3 ou mais tarefas atribuídas.
+
+ORDER BY qtd_tarefas DESC
+Ordena do mais atarefado para o menos.
+----------------------------------------------------------------------------------------------------------------------
+
+SELECT
+    p.status AS status_projeto,
+    ROUND(AVG(DATEDIFF(t.data_prevista_entrega, p.data_inicio)), 2) AS duracao_percebida_media
+FROM
+    Projetos p
+JOIN
+    Tarefas t ON p.id = t.id_projeto
+WHERE
+    t.data_prevista_entrega IS NOT NULL
+    AND p.data_inicio IS NOT NULL
+GROUP BY
+    p.status
+ORDER BY
+    p.status;
+----------------------------------------------------------------------------------------------------------------------
+Explicação:
+
+JOIN entre Projetos e Tarefas: Para acessar os campos necessários de ambos.
+
+DATEDIFF(t.data_prevista_entrega, p.data_inicio): Calcula a duração percebida da tarefa.
+
+AVG(...): Calcula a média por grupo.
+
+ROUND(..., 2): Arredonda para duas casas decimais.
+
+WHERE com IS NOT NULL: Garante que datas nulas sejam ignoradas.
+
+GROUP BY p.status: Agrupa por status do projeto.
+----------------------------------------------------------------------------------------------------------------------
+
+SELECT
+    p.nome AS nome_projeto,
+    r.cargo AS cargo_responsavel,
+    COUNT(t.id) AS qtd_tarefas
+FROM
+    Projetos p
+JOIN
+    Tarefas t ON p.id = t.id_projeto
+JOIN
+    Responsaveis r ON t.id_responsavel_tarefa = r.id
+WHERE
+    p.status = 'Em Andamento'
+GROUP BY
+    p.nome, r.cargo
+ORDER BY
+    p.nome, r.cargo;
+----------------------------------------------------------------------------------------------------------------------
+Explicação:
+
+JOIN Tarefas: Para pegar as tarefas dos projetos.
+
+JOIN Responsaveis: Para acessar o cargo dos responsáveis pelas tarefas.
+
+WHERE p.status = 'Em Andamento': Filtra apenas projetos ativos.
+
+GROUP BY p.nome, r.cargo: Agrupa os dados por projeto e cargo.
+
+COUNT(t.id): Conta quantas tarefas o cargo tem neste projeto.
+
+ORDER BY p.nome, r.cargo: Organiza a saída conforme solicitado.
+----------------------------------------------------------------------------------------------------------------------
+
+SELECT
+    p.nome AS nome_projeto,
+    COUNT(t.id) AS qtd_tarefas_atrasadas
+FROM
+    Projetos p
+JOIN
+    Tarefas t ON p.id = t.id_projeto
+WHERE
+    t.data_prevista_entrega < CURDATE()
+    AND t.status != 'Concluída'
+GROUP BY
+    p.nome
+ORDER BY
+    qtd_tarefas_atrasadas DESC
+LIMIT 5;
+----------------------------------------------------------------------------------------------------------------------
+Explicação:
+
+t.data_prevista_entrega < CURDATE(): Verifica se a data prevista de entrega já passou.
+
+t.status != 'Concluída': Garante que ainda não foi finalizada.
+
+GROUP BY p.nome: Agrupa por projeto.
+
+COUNT(t.id): Conta quantas tarefas atrasadas existem no projeto.
+
+ORDER BY ... DESC: Ordena do que tem mais atrasos para menos.
+
+LIMIT 5: Traz apenas os Top 5 projetos com mais tarefas em atraso.
+----------------------------------------------------------------------------------------------------------------------
+
+SELECT
+    t.id,
+    t.nome,
+    t.prioridade,
+    t.status,
+    t.data_prevista_entrega,
+    p.nome AS nome_projeto
+FROM
+    Tarefas t
+JOIN
+    Projetos p ON t.id_projeto = p.id
+WHERE
+    t.prioridade IN ('Urgente', 'Alta')
+    AND t.status != 'Concluída';
+----------------------------------------------------------------------------------------------------------------------
+
+SELECT DISTINCT
+    p.id,
+    p.nome
+FROM
+    Projetos p
+JOIN
+    Tarefas t ON t.id_projeto = p.id
+WHERE
+    t.status = 'Pendente';
+----------------------------------------------------------------------------------------------------------------------
+Explicação:
+
+JOIN entre Projetos e Tarefas para relacionar as tarefas ao projeto.
+
+WHERE t.status = 'Pendente' filtra as tarefas que estão pendentes.
+
+DISTINCT garante que cada projeto apareça uma única vez, mesmo que tenha várias tarefas pendentes
